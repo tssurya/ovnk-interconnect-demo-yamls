@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: client
+spec:
+  selector:
+    matchLabels:
+      run: client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: client
+    spec:
+      containers:
+        - name: hello-world
+          image: quay.io/itssurya/dev-images:node-hello
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      nodeSelector:
+        kubernetes.io/hostname: ovn-worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: server
+spec:
+  selector:
+    matchLabels:
+      run: server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: server
+    spec:
+      containers:
+        - name: hello-world
+          image: quay.io/itssurya/dev-images:node-hello
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      nodeSelector:
+        kubernetes.io/hostname: ovn-worker2

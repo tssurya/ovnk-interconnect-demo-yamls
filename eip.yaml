@@ -1,0 +1,10 @@
+apiVersion: k8s.ovn.org/v1
+kind: EgressIP
+metadata:
+  name: client-egress-ip
+spec:
+  egressIPs:
+  - 172.18.0.10
+  namespaceSelector:
+    matchLabels:
+      type: client
